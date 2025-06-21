@@ -15,5 +15,5 @@ export default withAuth(
 
 
 export const config = {
-  matcher: ["/dashboard", "/admin"], // bu route'ları korur
+  matcher: ["/dashboard", "/admin"], 
 };
