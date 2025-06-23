@@ -1,3 +1,5 @@
-export const isAdmin = (email: string | null | undefined): boolean => {
-  return email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+import { config } from "@/lib/config";
+
+export const isAdmin = (email?: string | null): boolean => {
+  return email === config.adminEmail;
 };

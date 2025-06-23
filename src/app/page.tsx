@@ -3,6 +3,8 @@
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -26,33 +28,45 @@ export default function Home() {
 
   if (isRedirecting || status === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <p className="text-xl">Yükleniyor...</p>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-6">
-      <h1 className="text-2xl font-bold">Hoş geldin 👋</h1>
+    <main
+      className="min-h-screen w-full flex items-center justify-center p-4"
+      style={{
+        backgroundImage: "url('/img/e-trade-center.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Beyaz kutu */}
+      <div className="bg-white rounded-2xl shadow-2xl p-8 w-[40%] max-w-sm flex flex-col items-center text-center gap-6">
+        {/* Logo */}
+        <Image
+          src="/img/logo2.png"
+          alt="Kayra Export Logo"
+          width={120}
+          height={120}
+          className="object-contain"
+        />
 
-      {!session ? (
-        // Kullanıcı giriş yapmamışsa:
+        {/* Başlık */}
+        <h1 className="text-xl font-semibold text-gray-800">
+          {"Kayra Export'a Hoşgeldiniz"}
+        </h1>
+        {/* Buton */}
         <button
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-          onClick={() => signIn("auth0", { prompt: "login" })} 
+          onClick={() => signIn("auth0", { prompt: "login" })}
+          className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white text-base font-medium rounded-lg shadow-md transition duration-300"
         >
           Giriş Yap
         </button>
-      ) : (
-        // Kullanıcı giriş yaptıysa
-        <button
-          className="px-4 py-2 bg-red-600 text-white rounded"
-          onClick={() => router.push("/api/custom-logout")} 
-        >
-          Çıkış Yap
-        </button>
-      )}
+      </div>
     </main>
   );
 }
